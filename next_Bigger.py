@@ -25,7 +25,7 @@ def run(num):
     3.最后重置num值
     eg.
     从n个位开始依次和n+1(十位)，n+2(百位)，n+3(千位)，n+4(万位)...进行比较
-    如果发现有大的数字，把n插入到n+1那里，同时把原来的n挪走，得到一个新的数字，放入我们的新列表
+    如果发现有大的数字，把n插入到n+1那里，同时把原来的n 抹掉，把n放入我们的列表的合适位置
     over and over again
     
     :param num:
@@ -37,12 +37,22 @@ def run(num):
     for i in range (1, len(num_str)+1):
         for j in range(i+1, len (num_str)+1):
 
+           if is_bigger(num_str[-i],num_str[-j]):  # 如果后一个数大于前一个数
+                num_str.insert(-j,num_str[-i])  # 将后一个数放在前一个数的位置
+                num_str.pop(-i)  # 删除 后一个数
+                head=num_str[:-j+1]  # 以 后一个数的新位置<包括>为中轴,分割成head 和tail
+                tail=num_str[-j+1:]
+                num_str=head+sorted(tail) # tail 中的元素可能不是从小到大排列的
+                new_num=int(''.join(num_str))
+                return new_num
+
+"""
             if is_bigger(num_str[-i],num_str[-j]):  # 如果后一个数大于前一个数
                 num_str.insert(-j,num_str[-i])  # 将后一个数放在前一个数的位置
 
                 head=num_str[:-j]
                 tail=num_str[-j:]
-                tail.pop()
+                tail.pop()  # 每次都是从末尾删除,此处有问题
 
                 num_str=head+sorted(tail,reverse=False)
                 new_num=int(''.join(num_str))
@@ -52,9 +62,10 @@ def run(num):
                 break  # 针对某个i 下的所有j的情况, 找到一个就跳出当前循环,继续下一个i循环
 
     return contain
+"""
 
 def next_bigger(n) :
-    return min(run(n)) if run(n) else -1  # 如果返回结果集为空,直接-1
+    return run(n) if run(n) else -1  # 如果返回结果集为空,直接-1   # old version:min(run(n))
 
 result=next_bigger('138100')
 print(result)
