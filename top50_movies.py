@@ -6,8 +6,7 @@ from lxml import etree
 from prettytable import PrettyTable
 
 latest_movies_url = "http://www.6vhao.tv/top.html"
-ROWS = 25  # 总行数
-COLUMNS = 3  # 总列数
+ROWS = 25  # 总行数. 总共50条数据,行确定,列就确定
 headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36'}
 
 
